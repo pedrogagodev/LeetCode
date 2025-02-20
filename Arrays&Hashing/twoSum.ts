@@ -1,13 +1,20 @@
-function twoSum(nums: number[], target: number): number[] | boolean {
+function twoSum(nums: number[], target: number): number[] | undefined {
+	const numberMap = new Map<number, number>();
+
 	for (let i = 0; i < nums.length; i++) {
-		for (let j = nums.length - 1; j > -1; j--) {
-			if (nums[i] + nums[j] === target && i !== j) {
-				const result = [i, j];
-				return result;
+		const number = nums[i];
+
+		const difference = target - number;
+
+		if (numberMap.has(difference)) {
+			const indexDifference = numberMap.get(difference);
+			if (indexDifference !== undefined) {
+				return [indexDifference, i];
 			}
 		}
+
+		numberMap.set(number, i);
 	}
-	return false;
 }
 
 console.log(twoSum([2, 7, 11, 15], 9));
